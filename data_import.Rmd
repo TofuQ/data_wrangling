@@ -1,0 +1,75 @@
+---
+title: "Data Import"
+output: github_document
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+library(tidyverse)
+library(readxl)
+library(haven)
+library(dplyr)
+library(skimr)
+```
+
+This document will show how to import data
+
+```{r}
+litters_df = read_csv("data/FAS_litters.csv")
+
+litters_df = janitor::clean_names(litters_df)
+
+view(litters_df)
+
+head(litters_df)
+tail(litters_df, 10)
+
+skim = skimr::skim(litters_df)
+```
+
+```{r eval = TRUE}
+view(litters_df)
+```
+
+```{r}
+pups_df = read_csv("data/FAS_pups.csv")
+
+pups_df = janitor::clean_names(pups_df)
+
+pups_df = 
+    read_csv("./data/FAS_pups.csv",
+        na = c(".", "NA"), col_types = "fdccdd")
+
+skimr::skim(pups_df)
+```
+
+```{r}
+view(pups_df)
+```
+
+## Look at read_csv options
+
+```{r}
+# Able to skip rows
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    col_types = cols(
+      'Litter Number' = col_factor()
+    )
+  )
+litters_df
+```
+Import MLB 2011 summary data
+```{r}
+mlb_df = read_excel("data/mlb11.xlsx", sheet = "mlb11")
+```
+Import SAS data
+
+```{r}
+pulse_df = read_sas("data/public_pulse_data.sas7bdat")
+```
+
+## Never use read.csv()
+
+helpful message missing
+
