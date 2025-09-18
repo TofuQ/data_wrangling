@@ -28,14 +28,17 @@ pups_df = janitor::clean_names(pups_df)
 Use `select()` to select variables
 
 ```{r}
+# In order
 select(litters_df, group, litter_number, gd0_weight)
 ```
 
 ```{r}
+# Range
 select(litters_df, group::gd18_weight)
 ```
 
 ```{r}
+# Elimination
 select(litters_df, -pups_survive)
 ```
 
@@ -49,6 +52,7 @@ select(litters_df, contains("pups"))
 ```
 
 ```{r}
+# Rename the column (forward one is new)
 select(litters_df, GROUP = group)
 
 rename(litters_df, GROUP = group)
@@ -70,22 +74,25 @@ filter(litters_df, pups_born_alive > 8)|>
 ```
 
 ```{r}
+# Control group within selected row
 filter(litters_df, group %in% c("Low7", "Low8")|pups_born_alive == 8) |>
   select(group, pups_born_alive, everything())
 ```
 
 ```{r}
-# Drop NA value within selected column
+# Drop NA value within selected column filter out missing value
 drop_na(litters_df, gd0_weight)
 ```
 
 ```{r}
+filter(pups_df, sex == 1)
 filter(pups_df, (sex == 2) & (pd_walk <11))
 ```
 
 ## `mutate`
 
 ```{r}
+# Create a column that relates to other columns
 mutate(litters_df, wt_gain = gd18_weight - gd0_weight, .before = 1)
 
 mutate(litters_df, sq_pups = pups_born_alive^2, .before = 1) |>

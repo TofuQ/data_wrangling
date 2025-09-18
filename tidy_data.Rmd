@@ -127,7 +127,7 @@ pups_df =
       1 ~ "male",
       2 ~ "female"
     )
-  )
+  ) |>
 ```
 
 Join the datasets!
